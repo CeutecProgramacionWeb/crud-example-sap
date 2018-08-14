@@ -12,7 +12,30 @@ function addStudent(){
     alumnos.push(student);
     let html = ' <div class="row clearfix"> <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2"> <button type="button" class="btn btn-primary" onclick="replaceWithAddForm();">Crear</button> </div> </div> <br> <div class="table-responsive"> <table class="table table-hover"> <tr> <th> Nombre </th> <th> Numero de cuenta </th> <th> Opciones </th> </tr>';
     for(let i = 0; i<alumnos.length; i++){
-        html+='<tr> <td>' + alumnos[i].nombre + '</td><td>' + alumnos[i].cuenta + '</td><td><button type="button" class="btn btn-danger" onclick="deleteStudent(this);">Borrar</button></td></tr>';
+        html+='<tr> <td>' + alumnos[i].nombre + '</td><td>' + alumnos[i].cuenta + '</td><td><button type="button" class="btn btn-danger" data-val-id ="'+ alumnos[i].cuenta  +'" onclick="deleteStudent(this);">Borrar</button></td></tr>';
+    }
+   
+    html+='</table></div>';
+    document.getElementById('container').innerHTML = html;
+}
+
+function deleteStudent(element){
+    let id = element.getAttribute("data-val-id");
+    let index = -1;
+    for(let i = 0; i< alumnos.length; i++){
+        if(alumnos[i].cuenta === id){
+            index = i;
+            break;
+        }
+    }
+
+    if(index !==-1){
+        alumnos.splice(index, 1);
+    }
+
+    let html = ' <div class="row clearfix"> <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2"> <button type="button" class="btn btn-primary" onclick="replaceWithAddForm();">Crear</button> </div> </div> <br> <div class="table-responsive"> <table class="table table-hover"> <tr> <th> Nombre </th> <th> Numero de cuenta </th> <th> Opciones </th> </tr>';
+    for(let i = 0; i<alumnos.length; i++){
+        html+='<tr> <td>' + alumnos[i].nombre + '</td><td>' + alumnos[i].cuenta + '</td><td><button type="button" class="btn btn-danger" data-val-id ="'+ alumnos[i].cuenta  +'" onclick="deleteStudent(this);">Borrar</button></td></tr>';
     }
    
     html+='</table></div>';
